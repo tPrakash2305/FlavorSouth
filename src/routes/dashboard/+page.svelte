@@ -201,7 +201,7 @@
 
 <div class="container mx-auto space-y-6 p-4">
 	<div class="flex items-center justify-between">
-		<h1 class="text-3xl font-bold">Amma Idli House Dashboard</h1>
+		<h1 class="text-3xl font-bold">FlavorSouth Dashboard</h1>
 		<Button variant="outline" class="flex items-center gap-2" onclick={() => goto('/cart')}>
 			<ShoppingCart class="h-4 w-4" />
 			<span>Cart ({getCartItemsCount()})</span>

@@ -13,7 +13,7 @@
 
 <div class="container mx-auto flex flex-col items-center px-4 py-16">
 	<div class="mb-12 text-center">
-		<h1 class="mb-4 text-4xl font-bold md:text-6xl">Amma Idli House</h1>
+		<h1 class="mb-4 text-4xl font-bold md:text-6xl">FlavorSouth</h1>
 		<p class="text-xl text-muted-foreground">Authentic South Indian Cuisine</p>
 		<Separator class="mx-auto my-6 max-w-md" />
 		<p class="mx-auto max-w-md">
