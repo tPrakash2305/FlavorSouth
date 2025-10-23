@@ -9,7 +9,7 @@ A modern food ordering platform for authentic South Indian cuisine. Order delici
 
 ## Live Demo
 
-**[View Live Application](https://flavor-south-iiafuf9nj-prakash-thapas-projects-a7356fbb.vercel.app)**
+**[View Live Application](https://flavor-south.vercel.app)**
 
 > Deployed on Vercel with automatic deployments from GitHub.
 
