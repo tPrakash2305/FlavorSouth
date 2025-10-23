@@ -42,16 +42,15 @@
 			</div>
 
 			<div class="flex flex-col gap-2 sm:flex-row">
-				<Button on:click={handleReload} variant="default" class="flex-1">
+				<Button onclick={handleReload} variant="default" class="flex-1">
 					<RefreshCw class="mr-2 h-4 w-4" />
 					Reload Page
 				</Button>
-				<Button on:click={goHome} variant="outline" class="flex-1">
+				<Button onclick={goHome} variant="outline" class="flex-1">
 					<Home class="mr-2 h-4 w-4" />
 					Go Home
 				</Button>
 			</div>
-
 			{#if import.meta.env.DEV && $page.error}
 				<details class="rounded-lg border border-border bg-muted/50 p-4">
 					<summary class="cursor-pointer text-sm font-medium">Developer Details</summary>

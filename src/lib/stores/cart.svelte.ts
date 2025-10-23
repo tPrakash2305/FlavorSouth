@@ -41,7 +41,7 @@ export function createCartStore() {
 					}
 					return item;
 				});
-				
+
 				// Assign to state variable once
 				cart = processedCart;
 			} catch (e) {

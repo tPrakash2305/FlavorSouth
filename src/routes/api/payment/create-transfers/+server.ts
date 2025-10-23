@@ -1,23 +1,28 @@
 // src/routes/api/payment/create-transfers/+server.ts
 import { json } from '@sveltejs/kit';
+import type { RequestHandler } from './$types';
 import Stripe from 'stripe';
 import { STRIPE_SECRET_KEY } from '$env/static/private';
 
 const stripe = new Stripe(STRIPE_SECRET_KEY);
 
 // Define your connected account IDs - replace with your actual account IDs
-const CATEGORY_ACCOUNTS = {
+const CATEGORY_ACCOUNTS: Record<string, string> = {
 	food: 'acct_food123',
 	beverage: 'acct_beverage456',
 	default: 'acct_default789'
 };
 
-export async function POST({ request }) {
+export const POST: RequestHandler = async ({ request }) => {
 	try {
 		const { paymentIntentId, orderId, categoryTotals } = await request.json();
 
 		// Verify the payment intent was successful
-		const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
+		const paymentIntent = (await stripe.paymentIntents.retrieve(paymentIntentId, {
+			expand: ['charges']
+		})) as Stripe.PaymentIntent & {
+			charges?: { data: Array<{ id: string }> };
+		};
 
 		if (paymentIntent.status !== 'succeeded') {
 			return json(
@@ -37,11 +42,18 @@ export async function POST({ request }) {
 			const accountId = CATEGORY_ACCOUNTS[category] || CATEGORY_ACCOUNTS.default;
 
 			if (accountId) {
+				// Get the charge ID from the expanded charges object
+				const chargeId = paymentIntent.charges?.data?.[0]?.id;
+
+				if (!chargeId) {
+					throw new Error('No charge found for payment intent');
+				}
+
 				return stripe.transfers.create({
 					amount: Math.round(Number(amount) * 100), // Convert to cents
 					currency: 'inr',
 					destination: accountId,
-					source_transaction: paymentIntent.charges.data[0].id, // Use the charge ID from the payment
+					source_transaction: chargeId,
 					transfer_group: transferGroup,
 					metadata: {
 						category,
@@ -59,9 +71,9 @@ export async function POST({ request }) {
 		return json(
 			{
 				success: false,
-				error: error.message
+				error: error instanceof Error ? error.message : 'Failed to create transfers'
 			},
 			{ status: 500 }
 		);
 	}
-}
+};

@@ -168,22 +168,25 @@
 			price: selectedVariant.price,
 			quantity: 1,
 			imageUrl: item.image,
-			category: item.category || 'snacks'  
+			category: item.category || 'snacks'
 		});
 
 		toast.success(`Added ${item.name} (${selectedVariant.size}) to cart`);
 	}
 
 	function groupProducts(products: Product[]): Record<string, Product & { quantity: number }> {
-		return products.reduce((acc, product) => {
-			const key = `${product.name}-${product.price}`;
-			if (!acc[key]) {
-				acc[key] = { ...product, quantity: 1 };
-			} else {
-				acc[key].quantity! += 1;
-			}
-			return acc;
-		}, {} as Record<string, Product & { quantity: number }>);
+		return products.reduce(
+			(acc, product) => {
+				const key = `${product.name}-${product.price}`;
+				if (!acc[key]) {
+					acc[key] = { ...product, quantity: 1 };
+				} else {
+					acc[key].quantity! += 1;
+				}
+				return acc;
+			},
+			{} as Record<string, Product & { quantity: number }>
+		);
 	}
 
 	function handleViewDetails(order: Order): void {
@@ -280,7 +283,7 @@
 									Status: <Badge variant="secondary">{selectedOrder.status}</Badge>
 								</p>
 							</div>
-							
+
 							<div class="space-y-2">
 								<h4 class="font-medium">Items</h4>
 								<div class="rounded-md border p-4">
@@ -296,7 +299,8 @@
 									<Separator class="my-2" />
 									<div class="flex justify-between font-medium">
 										<span>Total</span>
-										<span>₹{selectedOrder.products.reduce((acc, curr) => acc + curr.price, 0)}</span>
+										<span>₹{selectedOrder.products.reduce((acc, curr) => acc + curr.price, 0)}</span
+										>
 									</div>
 								</div>
 							</div>

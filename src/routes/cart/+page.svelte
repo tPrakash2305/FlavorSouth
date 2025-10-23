@@ -19,14 +19,7 @@
 	let cartTotal = $state(0);
 
 	// Extract methods from cart store
-	const {
-		removeFromCart,
-		updateQuantity,
-		clearCart,
-		getCartTotal,
-		getTotalsByCategory,
-		cartToOrderInput
-	} = cartStore;
+	const { removeFromCart, updateQuantity, clearCart, getCartTotal, cartToOrderInput } = cartStore;
 
 	// Update effect to track cart changes
 	$effect(() => {
@@ -53,7 +46,7 @@
 			const orderInput = cartToOrderInput($session.data.user.id);
 			const categoryTotals = cartItems.reduce<Record<string, number>>((totals, item) => {
 				const category = item.category || 'default';
-				totals[category] = (totals[category] || 0) + (Number(item.price) * item.quantity);
+				totals[category] = (totals[category] || 0) + Number(item.price) * item.quantity;
 				return totals;
 			}, {});
 
