@@ -1,0 +1,15 @@
+# Testing and coverage
+
+coverage/
+\*.test.ts.snap
+
+# Development
+
+.vscode/
+\*.log
+.DS_Store
+
+# Documentation drafts
+
+docs/drafts/
+\*.draft.md

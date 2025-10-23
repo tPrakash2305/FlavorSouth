@@ -19,22 +19,27 @@ A modern food ordering platform for authentic South Indian cuisine. Order delici
 <summary>Click to view screenshots</summary>
 
 ### Homepage
+
 ![Homepage](docs/screenshots/homepage.png)
 _Modern landing page with menu preview_
 
 ### Shopping Cart
+
 ![Cart](docs/screenshots/cart.png)
 _Intuitive cart with quantity management_
 
 ### Checkout & Payment
+
 ![Checkout](docs/screenshots/checkout.png)
 _Secure Stripe payment integration_
 
 ### Staff Dashboard
+
 ![Dashboard](docs/screenshots/dashboard.png)
 _Admin panel for order management_
 
 ### Mobile Responsive
+
 ![Mobile](docs/screenshots/mobile.png)
 _Fully responsive on all devices_
 
@@ -66,7 +71,7 @@ _Fully responsive on all devices_
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - PostgreSQL database
 - Stripe account
 - Twilio account (for SMS OTP)
@@ -74,12 +79,14 @@ _Fully responsive on all devices_
 ### Installation
 
 1. **Clone the repository**
+
 ```bash
 git clone https://github.com/tPrakash2305/FlavorSouth.git
 cd FlavorSouth
 ```
 
 2. **Install dependencies**
+
 ```bash
 npm install
 ```
@@ -107,12 +114,14 @@ BETTER_AUTH_SECRET="your_random_secret"
 ```
 
 4. **Set up the database**
+
 ```bash
 npx prisma generate
 npx prisma db push
 ```
 
 5. **Run the development server**
+
 ```bash
 npm run dev
 ```
@@ -135,6 +144,7 @@ npm run test:coverage # Run tests with coverage report
 ## Usage
 
 ### For Customers:
+
 1. Visit the homepage and click "View Menu"
 2. Sign in with your phone number (OTP verification)
 3. Browse menu items and add to cart
@@ -142,6 +152,7 @@ npm run test:coverage # Run tests with coverage report
 5. Track your order status in the dashboard
 
 ### For Staff:
+
 1. Navigate to `/staff-dashboard`
 2. View all orders
 3. Filter by status (Pending, Completed, Cancelled)
@@ -189,6 +200,7 @@ npx vercel --prod
 ### Environment Variables for Production
 
 Make sure to set these in your Vercel project settings:
+
 - `DATABASE_URL` - Your PostgreSQL connection string
 - `STRIPE_SECRET_KEY` & `PUBLIC_STRIPE_KEY` - Stripe API keys
 - `TWILIO_*` - Twilio credentials for SMS verification

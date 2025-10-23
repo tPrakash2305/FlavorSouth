@@ -1,7 +1,13 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { Button } from '$lib/components/ui/button';
-	import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '$lib/components/ui/card';
+	import {
+		Card,
+		CardContent,
+		CardDescription,
+		CardHeader,
+		CardTitle
+	} from '$lib/components/ui/card';
 	import { AlertCircle, Home, RefreshCw } from 'lucide-svelte';
 
 	function handleReload() {
@@ -49,8 +55,7 @@
 			{#if import.meta.env.DEV && $page.error}
 				<details class="rounded-lg border border-border bg-muted/50 p-4">
 					<summary class="cursor-pointer text-sm font-medium">Developer Details</summary>
-					<pre
-						class="mt-2 overflow-x-auto text-xs">{JSON.stringify($page.error, null, 2)}</pre>
+					<pre class="mt-2 overflow-x-auto text-xs">{JSON.stringify($page.error, null, 2)}</pre>
 				</details>
 			{/if}
 		</CardContent>
