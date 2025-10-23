@@ -1,18 +1,58 @@
-# FlavorSouth 🍛
+# FlavorSouth
+
+[![CI](https://github.com/tPrakash2305/FlavorSouth/actions/workflows/ci.yml/badge.svg)](https://github.com/tPrakash2305/FlavorSouth/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue.svg)](https://www.typescriptlang.org/)
+[![Svelte](https://img.shields.io/badge/Svelte-5.0-orange.svg)](https://svelte.dev/)
 
 A modern food ordering platform for authentic South Indian cuisine. Order delicious idli, dosa, vada, and more with seamless payment integration and real-time order management.
 
-## ✨ Features
+## Live Demo
 
-- 🔐 **Phone Authentication** - OTP-based login via Twilio
-- 🛒 **Shopping Cart** - Add items, manage quantities with localStorage persistence
-- 💳 **Stripe Payments** - Secure payment processing
-- 📦 **Order Management** - Track order status in real-time
-- 👨‍💼 **Staff Dashboard** - Admin interface for managing orders
-- 📱 **Responsive Design** - Works on all devices
-- 🎨 **Modern UI** - Built with shadcn/ui components
+**[View Live Application](https://flavorsouth.vercel.app)** _(Deploy and add your URL here)_
 
-## 🛠️ Tech Stack
+> **Note:** After deploying to Vercel, update this link with your actual deployment URL.
+
+## Screenshots
+
+<details>
+<summary>Click to view screenshots</summary>
+
+### Homepage
+![Homepage](docs/screenshots/homepage.png)
+_Modern landing page with menu preview_
+
+### Shopping Cart
+![Cart](docs/screenshots/cart.png)
+_Intuitive cart with quantity management_
+
+### Checkout & Payment
+![Checkout](docs/screenshots/checkout.png)
+_Secure Stripe payment integration_
+
+### Staff Dashboard
+![Dashboard](docs/screenshots/dashboard.png)
+_Admin panel for order management_
+
+### Mobile Responsive
+![Mobile](docs/screenshots/mobile.png)
+_Fully responsive on all devices_
+
+</details>
+
+> **TODO:** Add screenshots to `docs/screenshots/` folder after capturing your app.
+
+## Features
+
+- **Phone Authentication** - OTP-based login via Twilio
+- **Shopping Cart** - Add items, manage quantities with localStorage persistence
+- **Stripe Payments** - Secure payment processing
+- **Order Management** - Track order status in real-time
+- **Staff Dashboard** - Admin interface for managing orders
+- **Responsive Design** - Works on all devices
+- **Modern UI** - Built with shadcn/ui components
+
+## Tech Stack
 
 - **Framework:** SvelteKit 5
 - **Database:** PostgreSQL with Prisma ORM
@@ -22,7 +62,7 @@ A modern food ordering platform for authentic South Indian cuisine. Order delici
 - **UI Components:** shadcn/ui
 - **Deployment:** Vercel
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -77,9 +117,22 @@ npx prisma db push
 npm run dev
 ```
 
-Visit `http://localhost:5173` to see the app! 🎉
+Visit `http://localhost:5173` to see the app!
 
-## 📱 Usage
+## Testing
+
+Run the test suite:
+
+```bash
+npm test              # Run tests in watch mode
+npm run test:ui       # Open Vitest UI for interactive testing
+npm run test:run      # Run tests once (CI mode)
+npm run test:coverage # Run tests with coverage report
+```
+
+**Current Test Coverage:** 8 tests across cart utilities
+
+## Usage
 
 ### For Customers:
 1. Visit the homepage and click "View Menu"
@@ -94,7 +147,7 @@ Visit `http://localhost:5173` to see the app! 🎉
 3. Filter by status (Pending, Completed, Cancelled)
 4. Update order status
 
-## 📂 Project Structure
+## Project Structure
 
 ```
 FlavorSouth/
@@ -119,35 +172,69 @@ FlavorSouth/
 └── package.json
 ```
 
-## 🔒 Environment Variables
+## Deployment
 
-All required environment variables are documented in `.env.example`. Make sure to:
-- Never commit `.env` to version control
-- Use strong secrets for production
-- Update `PUBLIC_BETTER_AUTH_URL` for production deployment
+This project is optimized for **Vercel** deployment with zero configuration:
 
-## 🚢 Deployment
-
-This project is configured for Vercel deployment:
+1. **Connect your GitHub repository** to Vercel
+2. **Set environment variables** in Vercel dashboard (all variables from `.env.example`)
+3. **Deploy automatically** on every push to main
 
 ```bash
+# Or deploy manually
 npm run build
+npx vercel --prod
 ```
 
-Make sure to set all environment variables in your Vercel project settings.
+### Environment Variables for Production
 
-## 📝 License
+Make sure to set these in your Vercel project settings:
+- `DATABASE_URL` - Your PostgreSQL connection string
+- `STRIPE_SECRET_KEY` & `PUBLIC_STRIPE_KEY` - Stripe API keys
+- `TWILIO_*` - Twilio credentials for SMS verification
+- `BETTER_AUTH_SECRET` - Strong random secret (use `openssl rand -base64 32`)
+- `PUBLIC_BETTER_AUTH_URL` - Your production URL
+
+## Code Quality
+
+- ✅ **TypeScript** for type safety
+- ✅ **ESLint + Prettier** for code formatting
+- ✅ **Automated CI/CD** via GitHub Actions
+- ✅ **Unit Tests** with Vitest
+- ✅ **Prisma ORM** for database type safety
+
+## Security Features
+
+- **Phone-based OTP authentication** via Twilio
+- **Session management** with Better Auth
+- **PCI-compliant payment processing** (Stripe)
+- **Environment variables** for sensitive data
+- **CSRF protection** via SvelteKit
+- **No passwords stored** (phone auth only)
+
+## Performance
+
+- Server-side rendering with SvelteKit
+- Optimized builds with Vite
+- Code splitting and lazy loading
+- Tailwind CSS for minimal bundle size
+- Efficient database queries with Prisma
+
+## License
 
 MIT License - feel free to use this project for learning or commercial purposes.
 
-## 🤝 Contributing
+## Contributing
 
-Contributions are welcome! Feel free to open issues or submit pull requests.
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/tPrakash2305/FlavorSouth/issues).
 
-## 📧 Contact
+### Development Workflow
 
-For questions or support, please open an issue on GitHub.
-
----
-
-Made with ❤️ for South Indian food lovers
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes
+4. Run tests (`npm test`)
+5. Run linting (`npm run lint`)
+6. Commit your changes (`git commit -m 'feat: add amazing feature'`)
+7. Push to the branch (`git push origin feature/amazing-feature`)
+8. Open a Pull Request
