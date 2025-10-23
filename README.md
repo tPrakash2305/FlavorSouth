@@ -9,9 +9,9 @@ A modern food ordering platform for authentic South Indian cuisine. Order delici
 
 ## Live Demo
 
-**[View Live Application](https://flavorsouth.vercel.app)** _(Deploy and add your URL here)_
+**[View Live Application](https://flavor-south-iiafuf9nj-prakash-thapas-projects-a7356fbb.vercel.app)** 🚀
 
-> **Note:** After deploying to Vercel, update this link with your actual deployment URL.
+> Deployed on Vercel with automatic deployments from GitHub.
 
 ## Screenshots
 
