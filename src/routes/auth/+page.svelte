@@ -131,50 +131,99 @@
 	}
 </script>
 
-<div class="flex min-h-screen items-center justify-center bg-background p-4">
-	<Card class="w-full max-w-md">
-		<CardHeader>
-			<CardTitle class="text-center text-2xl font-bold">
+<div
+	class="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-orange-50 via-white to-red-50 p-4"
+>
+	<!-- Decorative Background Elements -->
+	<div class="absolute inset-0 overflow-hidden">
+		<div
+			class="absolute -left-4 top-20 h-72 w-72 animate-pulse rounded-full bg-orange-200 opacity-20 blur-3xl"
+		></div>
+		<div
+			class="absolute -right-4 bottom-20 h-72 w-72 animate-pulse rounded-full bg-red-200 opacity-20 blur-3xl"
+			style="animation-delay: 1s;"
+		></div>
+		<div
+			class="absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 animate-pulse rounded-full bg-yellow-200 opacity-10 blur-3xl"
+			style="animation-delay: 2s;"
+		></div>
+	</div>
+
+	<!-- Main Card -->
+	<Card class="relative w-full max-w-md shadow-2xl backdrop-blur-sm">
+		<!-- Brand Header -->
+		<div class="absolute -top-12 left-1/2 -translate-x-1/2">
+			<div
+				class="flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-orange-500 to-red-600 shadow-lg"
+			>
+				<PhoneIcon class="h-12 w-12 text-white" />
+			</div>
+		</div>
+
+		<CardHeader class="space-y-3 pt-16 text-center">
+			<CardTitle class="text-3xl font-bold tracking-tight">
 				{#if verificationSuccess}
-					Verification Complete
+					<span class="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+						All Set! 🎉
+					</span>
 				{:else if otpSent}
-					Enter Verification Code
+					<span class="bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
+						Verify Your Number
+					</span>
 				{:else}
-					Phone Verification
+					<span class="bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
+						Welcome to FlavorSouth
+					</span>
 				{/if}
 			</CardTitle>
-			<CardDescription class="text-center">
+			<CardDescription class="text-base text-gray-600">
 				{#if verificationSuccess}
 					Your phone number has been verified successfully!
 				{:else if otpSent}
-					We've sent a 6-digit code to {phoneNumber}
+					Enter the 6-digit code sent to <strong class="text-gray-900">{phoneNumber}</strong>
 				{:else}
-					Enter your phone number to receive a verification code
+					Sign in with your phone number to continue
 				{/if}
 			</CardDescription>
 		</CardHeader>
 
-		<CardContent>
+		<CardContent class="space-y-6 px-6 pb-6">
 			{#if verificationSuccess}
-				<div class="flex flex-col items-center justify-center py-6">
-					<CheckCircle2 class="mb-4 h-16 w-16 text-green-500" />
-					<p class="text-center text-primary">You will be redirected shortly...</p>
+				<div class="flex flex-col items-center justify-center py-8">
+					<div
+						class="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-green-400 to-emerald-500 shadow-lg"
+					>
+						<CheckCircle2 class="h-10 w-10 text-white" />
+					</div>
+					<p class="animate-pulse text-center text-lg font-medium text-gray-700">
+						Redirecting to your dashboard...
+					</p>
 				</div>
 			{:else if otpSent}
-				<div class="space-y-4">
-					<div class="flex flex-col items-center gap-4">
-						<label for="otp" class="text-sm font-medium text-primary">Verification Code</label>
+				<div class="space-y-6">
+					<div class="flex flex-col items-center gap-6">
+						<label for="otp" class="text-sm font-semibold text-gray-700">
+							Enter Verification Code
+						</label>
 						<InputOTP.Root value={otp} onValueChange={handleOtpChange} maxlength={6}>
 							{#snippet children({ cells })}
-								<InputOTP.Group>
+								<InputOTP.Group class="gap-2">
 									{#each cells.slice(0, 3) as cell (cell)}
-										<InputOTP.Slot {cell} />
+										<InputOTP.Slot
+											{cell}
+											class="h-14 w-12 rounded-lg border-2 border-gray-300 text-lg font-bold transition-all hover:border-orange-400 focus:border-orange-500 focus:ring-2 focus:ring-orange-200"
+										/>
 									{/each}
 								</InputOTP.Group>
-								<InputOTP.Separator />
-								<InputOTP.Group>
+								<div class="px-2">
+									<div class="h-1 w-8 rounded-full bg-gradient-to-r from-orange-400 to-red-400"></div>
+								</div>
+								<InputOTP.Group class="gap-2">
 									{#each cells.slice(3, 6) as cell (cell)}
-										<InputOTP.Slot {cell} />
+										<InputOTP.Slot
+											{cell}
+											class="h-14 w-12 rounded-lg border-2 border-gray-300 text-lg font-bold transition-all hover:border-orange-400 focus:border-orange-500 focus:ring-2 focus:ring-orange-200"
+										/>
 									{/each}
 								</InputOTP.Group>
 							{/snippet}
@@ -182,36 +231,47 @@
 					</div>
 
 					{#if error}
-						<p class="text-center text-sm text-red-500">{error}</p>
+						<div
+							class="flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700"
+						>
+							<div class="h-1.5 w-1.5 rounded-full bg-red-500"></div>
+							{error}
+						</div>
 					{/if}
 
-					<div class="mt-2 text-center text-sm text-gray-500">
-						Didn't receive the code?
-						<button
-							onclick={resetForm}
-							disabled={isLoading}
-							class="text-blue-600 hover:underline focus:outline-none"
-						>
-							Try again
-						</button>
+					<div class="rounded-lg bg-gray-50 p-4 text-center">
+						<p class="text-sm text-gray-600">
+							Didn't receive the code?
+							<button
+								onclick={resetForm}
+								disabled={isLoading}
+								class="ml-1 font-semibold text-orange-600 transition-colors hover:text-orange-700 hover:underline focus:outline-none disabled:opacity-50"
+							>
+								Resend OTP
+							</button>
+						</p>
 					</div>
 				</div>
 			{:else}
-				<div class="space-y-4">
-					<div class="space-y-2">
-						<label for="phoneNumber" class="text-sm font-medium text-primary">Phone Number</label>
+				<div class="space-y-5">
+					<div class="space-y-3">
+						<label for="phoneNumber" class="text-sm font-semibold text-gray-700">
+							Phone Number
+						</label>
 						<div class="relative">
-							<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-								<PhoneIcon class="h-4 w-4 text-gray-400" />
+							<div
+								class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-gray-500"
+							>
+								<PhoneIcon class="h-5 w-5" />
 							</div>
 							<Input
 								type="tel"
-								class="pl-10"
+								class="h-12 border-2 border-gray-300 pl-12 text-lg transition-all focus:border-orange-500 focus:ring-2 focus:ring-orange-200"
 								id="phoneNumber"
 								autocomplete="off"
 								inputmode="numeric"
 								bind:value={phoneNumber}
-								placeholder="+919876543210"
+								placeholder="+91 98765 43210"
 								oninput={(e) => {
 									let val = (e.target as HTMLInputElement).value.replace(/[^0-9]/g, '');
 
@@ -223,35 +283,69 @@
 								}}
 							/>
 						</div>
-						<p class="text-xs text-gray-500">
-							Enter your phone number in Indian format (e.g., +919876543210)
+						<p class="flex items-center gap-2 text-xs text-gray-500">
+							<div class="h-1 w-1 rounded-full bg-gray-400"></div>
+							Enter your Indian mobile number to receive OTP
 						</p>
 					</div>
 
 					{#if error}
-						<p class="text-sm text-red-500">{error}</p>
+						<div
+							class="flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700"
+						>
+							<div class="h-1.5 w-1.5 rounded-full bg-red-500"></div>
+							{error}
+						</div>
 					{/if}
+
+					<!-- Features Section -->
+					<div class="space-y-2 rounded-lg bg-gradient-to-br from-orange-50 to-red-50 p-4">
+						<p class="text-xs font-semibold uppercase tracking-wide text-gray-600">Why Sign In?</p>
+						<ul class="space-y-2 text-sm text-gray-700">
+							<li class="flex items-start gap-2">
+								<div class="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange-500"></div>
+								<span>Track your orders in real-time</span>
+							</li>
+							<li class="flex items-start gap-2">
+								<div class="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange-500"></div>
+								<span>Save your favorite South Indian dishes</span>
+							</li>
+							<li class="flex items-start gap-2">
+								<div class="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange-500"></div>
+								<span>Get exclusive offers and deals</span>
+							</li>
+						</ul>
+					</div>
 				</div>
 			{/if}
 		</CardContent>
 
-		<CardFooter class="flex justify-center">
+		<CardFooter class="flex justify-center px-6 pb-6">
 			{#if !verificationSuccess}
 				{#if otpSent}
-					<Button class="w-full" onclick={handleVerifyOtp} disabled={isLoading || otp.length !== 6}>
+					<Button
+						class="h-12 w-full bg-gradient-to-r from-orange-500 to-red-600 text-base font-semibold shadow-lg transition-all hover:from-orange-600 hover:to-red-700 hover:shadow-xl disabled:opacity-50"
+						onclick={handleVerifyOtp}
+						disabled={isLoading || otp.length !== 6}
+					>
 						{#if isLoading}
-							<Loader2 class="mr-2 h-4 w-4 animate-spin" />
+							<Loader2 class="mr-2 h-5 w-5 animate-spin" />
 							Verifying...
 						{:else}
-							Verify
+							Verify & Continue
 						{/if}
 					</Button>
 				{:else}
-					<Button onclick={handleSendOtp} disabled={isLoading || !phoneNumber} class="w-full">
+					<Button
+						onclick={handleSendOtp}
+						disabled={isLoading || !phoneNumber}
+						class="h-12 w-full bg-gradient-to-r from-orange-500 to-red-600 text-base font-semibold shadow-lg transition-all hover:from-orange-600 hover:to-red-700 hover:shadow-xl disabled:opacity-50"
+					>
 						{#if isLoading}
-							<Loader2 class="mr-2 h-4 w-4 animate-spin" />
-							Sending...
+							<Loader2 class="mr-2 h-5 w-5 animate-spin" />
+							Sending OTP...
 						{:else}
+							<PhoneIcon class="mr-2 h-5 w-5" />
 							Send Verification Code
 						{/if}
 					</Button>
@@ -259,4 +353,11 @@
 			{/if}
 		</CardFooter>
 	</Card>
+
+	<!-- Footer Text -->
+	<div class="absolute bottom-4 left-0 right-0 text-center">
+		<p class="text-sm text-gray-600">
+			Authentic South Indian Cuisine • Fast & Secure Checkout
+		</p>
+	</div>
 </div>
