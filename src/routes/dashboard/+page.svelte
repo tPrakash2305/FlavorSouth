@@ -76,29 +76,187 @@
 				{ size: '4 pcs', price: '₹70' },
 				{ size: '6 pcs', price: '₹100' }
 			],
-			image: 'https://placehold.co/300x200?text=Idli'
+			image: 'https://placehold.co/300x200?text=Idli',
+			category: 'food'
+		},
+		{
+			id: 'plain-dosa',
+			name: 'Plain Dosa',
+			description: 'Crispy thin rice crepe',
+			variants: [
+				{ size: '1 pc', price: '₹50' },
+				{ size: '2 pcs', price: '₹90' }
+			],
+			image: 'https://placehold.co/300x200?text=Plain+Dosa',
+			category: 'food'
+		},
+		{
+			id: 'masala-dosa',
+			name: 'Masala Dosa',
+			description: 'Dosa filled with spiced potato masala',
+			variants: [
+				{ size: '1 pc', price: '₹70' },
+				{ size: '2 pcs', price: '₹130' }
+			],
+			image: 'https://placehold.co/300x200?text=Masala+Dosa',
+			category: 'food'
+		},
+		{
+			id: 'ghee-roast-dosa',
+			name: 'Ghee Roast Dosa',
+			description: 'Crispy dosa roasted in pure ghee',
+			variants: [
+				{ size: '1 pc', price: '₹80' },
+				{ size: '2 pcs', price: '₹150' }
+			],
+			image: 'https://placehold.co/300x200?text=Ghee+Dosa',
+			category: 'food'
+		},
+		{
+			id: 'onion-dosa',
+			name: 'Onion Dosa',
+			description: 'Dosa topped with caramelized onions',
+			variants: [
+				{ size: '1 pc', price: '₹60' },
+				{ size: '2 pcs', price: '₹110' }
+			],
+			image: 'https://placehold.co/300x200?text=Onion+Dosa',
+			category: 'food'
+		},
+		{
+			id: 'medu-vada',
+			name: 'Medu Vada',
+			description: 'Crispy golden fried lentil donuts',
+			variants: [
+				{ size: '2 pcs', price: '₹50' },
+				{ size: '4 pcs', price: '₹90' },
+				{ size: '6 pcs', price: '₹130' }
+			],
+			image: 'https://placehold.co/300x200?text=Medu+Vada',
+			category: 'food'
+		},
+		{
+			id: 'sambar-vada',
+			name: 'Sambar Vada',
+			description: 'Medu vada soaked in hot sambar',
+			variants: [
+				{ size: '2 pcs', price: '₹60' },
+				{ size: '4 pcs', price: '₹110' }
+			],
+			image: 'https://placehold.co/300x200?text=Sambar+Vada',
+			category: 'food'
+		},
+		{
+			id: 'plain-uttapam',
+			name: 'Plain Uttapam',
+			description: 'Thick rice pancake',
+			variants: [
+				{ size: '1 pc', price: '₹55' },
+				{ size: '2 pcs', price: '₹100' }
+			],
+			image: 'https://placehold.co/300x200?text=Plain+Uttapam',
+			category: 'food'
+		},
+		{
+			id: 'onion-uttapam',
+			name: 'Onion Uttapam',
+			description: 'Uttapam topped with onions',
+			variants: [
+				{ size: '1 pc', price: '₹65' },
+				{ size: '2 pcs', price: '₹120' }
+			],
+			image: 'https://placehold.co/300x200?text=Onion+Uttapam',
+			category: 'food'
+		},
+		{
+			id: 'tomato-uttapam',
+			name: 'Tomato Uttapam',
+			description: 'Uttapam topped with tomatoes',
+			variants: [
+				{ size: '1 pc', price: '₹65' },
+				{ size: '2 pcs', price: '₹120' }
+			],
+			image: 'https://placehold.co/300x200?text=Tomato+Uttapam',
+			category: 'food'
+		},
+		{
+			id: 'mixed-uttapam',
+			name: 'Mixed Veg Uttapam',
+			description: 'Uttapam topped with mixed vegetables',
+			variants: [
+				{ size: '1 pc', price: '₹75' },
+				{ size: '2 pcs', price: '₹140' }
+			],
+			image: 'https://placehold.co/300x200?text=Mixed+Uttapam',
+			category: 'food'
+		},
+		{
+			id: 'pongal',
+			name: 'Ven Pongal',
+			description: 'Savory rice and lentil porridge',
+			variants: [
+				{ size: 'Small', price: '₹50' },
+				{ size: 'Regular', price: '₹70' }
+			],
+			image: 'https://placehold.co/300x200?text=Pongal',
+			category: 'food'
+		},
+		{
+			id: 'upma',
+			name: 'Upma',
+			description: 'Savory semolina porridge with vegetables',
+			variants: [
+				{ size: 'Small', price: '₹45' },
+				{ size: 'Regular', price: '₹65' }
+			],
+			image: 'https://placehold.co/300x200?text=Upma',
+			category: 'food'
+		},
+		{
+			id: 'poori',
+			name: 'Poori Bhaji',
+			description: 'Fluffy fried bread with potato curry',
+			variants: [
+				{ size: '2 pcs', price: '₹60' },
+				{ size: '4 pcs', price: '₹110' }
+			],
+			image: 'https://placehold.co/300x200?text=Poori',
+			category: 'food'
 		},
 		{
 			id: 'coffee',
-			name: 'Coffee',
-			description: 'South Indian filter coffee',
+			name: 'Filter Coffee',
+			description: 'Authentic South Indian filter coffee',
 			variants: [
 				{ size: 'Small', price: '₹20' },
 				{ size: 'Regular', price: '₹30' },
 				{ size: 'Large', price: '₹40' }
 			],
-			image: 'https://placehold.co/300x200?text=Coffee'
+			image: 'https://placehold.co/300x200?text=Coffee',
+			category: 'beverage'
 		},
 		{
 			id: 'tea',
-			name: 'Tea',
-			description: 'Classic Indian masala chai',
+			name: 'Masala Chai',
+			description: 'Classic Indian masala tea',
 			variants: [
 				{ size: 'Small', price: '₹15' },
 				{ size: 'Regular', price: '₹25' },
 				{ size: 'Large', price: '₹35' }
 			],
-			image: 'https://placehold.co/300x200?text=Tea'
+			image: 'https://placehold.co/300x200?text=Tea',
+			category: 'beverage'
+		},
+		{
+			id: 'buttermilk',
+			name: 'Buttermilk',
+			description: 'Refreshing spiced yogurt drink',
+			variants: [
+				{ size: 'Regular', price: '₹20' },
+				{ size: 'Large', price: '₹30' }
+			],
+			image: 'https://placehold.co/300x200?text=Buttermilk',
+			category: 'beverage'
 		}
 	];
 
