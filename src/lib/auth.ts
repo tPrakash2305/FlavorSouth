@@ -1,16 +1,10 @@
-import {
-	TWILIO_ACCOUNT_SID,
-	TWILIO_AUTH_TOKEN,
-	TWILIO_VERIFY_SERVICE_SID
-} from '$env/static/private';
+import { MSG91_AUTH_KEY, MSG91_TEMPLATE_ID } from '$env/static/private';
 import { PUBLIC_BETTER_AUTH_URL } from '$env/static/public';
 import { betterAuth } from 'better-auth';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
 import { anonymous, phoneNumber } from 'better-auth/plugins';
-import pkg from 'twilio';
+import axios from 'axios';
 import prisma from './prisma';
-
-const { Twilio } = pkg;
 
 export const auth = betterAuth({
 	trustedOrigins: [PUBLIC_BETTER_AUTH_URL],
@@ -21,25 +15,31 @@ export const auth = betterAuth({
 		phoneNumber({
 			sendOTP: async ({ phoneNumber }) => {
 				try {
-					console.log('Attempting to send OTP to:', phoneNumber);
-					console.log('Twilio Account SID:', TWILIO_ACCOUNT_SID ? 'Set' : 'Missing');
-					console.log('Twilio Auth Token:', TWILIO_AUTH_TOKEN ? 'Set' : 'Missing');
-					console.log('Twilio Verify Service SID:', TWILIO_VERIFY_SERVICE_SID ? 'Set' : 'Missing');
+					console.log('Sending OTP via MSG91 to:', phoneNumber);
+					console.log('MSG91 Auth Key:', MSG91_AUTH_KEY ? 'Set' : 'Missing');
+					console.log('MSG91 Template ID:', MSG91_TEMPLATE_ID ? 'Set' : 'Missing');
 
-					const client = new Twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
+					// MSG91 Send OTP API
+					const response = await axios.post(
+						'https://control.msg91.com/api/v5/otp',
+						{
+							template_id: MSG91_TEMPLATE_ID,
+							mobile: phoneNumber.replace('+', ''), // Remove + prefix
+							authkey: MSG91_AUTH_KEY
+						},
+						{
+							headers: {
+								'Content-Type': 'application/json',
+								authkey: MSG91_AUTH_KEY
+							}
+						}
+					);
 
-					const verification = await client.verify.v2
-						.services(TWILIO_VERIFY_SERVICE_SID)
-						.verifications.create({
-							channel: 'sms',
-							to: phoneNumber
-						});
-
-					console.log('OTP sent successfully:', verification.status);
-					return verification;
-				} catch (error) {
-					console.error('Error sending OTP:', error);
-					throw error;
+					console.log('MSG91 OTP sent successfully:', response.data);
+					return response.data;
+				} catch (error: any) {
+					console.error('MSG91 Error:', error.response?.data || error.message);
+					throw new Error(error.response?.data?.message || 'Failed to send OTP');
 				}
 			},
 			signUpOnVerification: {

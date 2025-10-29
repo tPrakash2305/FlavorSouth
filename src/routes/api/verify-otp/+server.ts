@@ -1,14 +1,9 @@
-import {
-	TWILIO_ACCOUNT_SID,
-	TWILIO_AUTH_TOKEN,
-	TWILIO_VERIFY_SERVICE_SID
-} from '$env/static/private';
+import { MSG91_AUTH_KEY } from '$env/static/private';
 import { json } from '@sveltejs/kit';
-import pkg from 'twilio';
+import type { RequestHandler } from './$types';
+import axios from 'axios';
 
-const { Twilio } = pkg;
-
-export async function POST({ request }) {
+export const POST: RequestHandler = async ({ request }) => {
 	try {
 		const { phoneNumber, otp } = await request.json();
 
@@ -16,25 +11,41 @@ export async function POST({ request }) {
 			return json({ success: false, error: 'Phone number and OTP are required' }, { status: 400 });
 		}
 
-		const client = new Twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
+		// MSG91 Verify OTP API
+		const response = await axios.post(
+			'https://control.msg91.com/api/v5/otp/verify',
+			{
+				otp: otp,
+				mobile: phoneNumber.replace('+', '') // Remove + prefix
+			},
+			{
+				headers: {
+					'Content-Type': 'application/json',
+					authkey: MSG91_AUTH_KEY
+				}
+			}
+		);
 
-		const verification_check = await client.verify.v2
-			.services(TWILIO_VERIFY_SERVICE_SID)
-			.verificationChecks.create({
-				to: phoneNumber,
-				code: otp
+		console.log('MSG91 Verify Response:', response.data);
+
+		// MSG91 returns type: 'success' when OTP is valid
+		if (response.data.type === 'success') {
+			return json({
+				success: true,
+				status: 'approved'
 			});
-
-		return json({
-			success: true,
-			status: verification_check.status
-		});
-	} catch (error) {
-		console.error('OTP verification error:', error);
+		} else {
+			return json({
+				success: false,
+				error: response.data.message || 'Invalid OTP'
+			});
+		}
+	} catch (error: any) {
+		console.error('OTP verification error:', error.response?.data || error.message);
 		return json(
 			{
 				success: false,
-				error: 'Failed to verify OTP'
+				error: error.response?.data?.message || 'Failed to verify OTP'
 			},
 			{ status: 500 }
 		);

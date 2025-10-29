@@ -67,9 +67,9 @@
 	"dependencies": {
 		"@prisma/client": "^6.6.0",
 		"@stripe/stripe-js": "^7.1.0",
+		"axios": "^1.13.1",
 		"better-auth": "^1.2.5",
 		"lucide-svelte": "^0.487.0",
-		"stripe": "^18.0.0",
-		"twilio": "^5.5.2"
+		"stripe": "^18.0.0"
 	}
 }
