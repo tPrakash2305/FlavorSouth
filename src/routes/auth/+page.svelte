@@ -49,11 +49,16 @@
 			toast.success('OTP sent successfully! Check your phone.');
 		} catch (err: any) {
 			console.error('Failed to send OTP:', err);
-			
+
 			// Handle specific Twilio trial mode errors
 			const errorMsg = err?.message || '';
-			if (errorMsg.includes('trial') || errorMsg.includes('unverified') || errorMsg.includes('60200')) {
-				error = '⚠️ Demo Mode: This app uses Twilio trial account. To receive OTP, your phone number must be verified in Twilio Console first. Please contact the administrator or try with a verified number.';
+			if (
+				errorMsg.includes('trial') ||
+				errorMsg.includes('unverified') ||
+				errorMsg.includes('60200')
+			) {
+				error =
+					'⚠️ Demo Mode: This app uses Twilio trial account. To receive OTP, your phone number must be verified in Twilio Console first. Please contact the administrator or try with a verified number.';
 			} else {
 				error = errorMsg || 'Failed to send OTP. Please check your phone number and try again.';
 			}
@@ -173,7 +178,9 @@
 		<CardHeader class="space-y-3 pt-16 text-center">
 			<CardTitle class="text-3xl font-bold tracking-tight">
 				{#if verificationSuccess}
-					<span class="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+					<span
+						class="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent"
+					>
 						All Set! 🎉
 					</span>
 				{:else if otpSent}
@@ -226,7 +233,9 @@
 									{/each}
 								</InputOTP.Group>
 								<div class="px-2">
-									<div class="h-1 w-8 rounded-full bg-gradient-to-r from-orange-400 to-red-400"></div>
+									<div
+										class="h-1 w-8 rounded-full bg-gradient-to-r from-orange-400 to-red-400"
+									></div>
 								</div>
 								<InputOTP.Group class="gap-2">
 									{#each cells.slice(3, 6) as cell (cell)}
@@ -293,10 +302,10 @@
 								}}
 							/>
 						</div>
-						<p class="flex items-center gap-2 text-xs text-gray-500">
+						<div class="flex items-center gap-2 text-xs text-gray-500">
 							<div class="h-1 w-1 rounded-full bg-gray-400"></div>
-							Enter your Indian mobile number to receive OTP
-						</p>
+							<span>Enter your Indian mobile number to receive OTP</span>
+						</div>
 					</div>
 
 					{#if error}
@@ -366,8 +375,6 @@
 
 	<!-- Footer Text -->
 	<div class="absolute bottom-4 left-0 right-0 text-center">
-		<p class="text-sm text-gray-600">
-			Authentic South Indian Cuisine • Fast & Secure Checkout
-		</p>
+		<p class="text-sm text-gray-600">Authentic South Indian Cuisine • Fast & Secure Checkout</p>
 	</div>
 </div>
