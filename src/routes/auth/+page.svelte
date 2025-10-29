@@ -39,15 +39,25 @@
 		isLoading = true;
 
 		try {
-			await authClient.phoneNumber.sendOtp({
+			console.log('Sending OTP to:', phoneNumber);
+			const response = await authClient.phoneNumber.sendOtp({
 				phoneNumber: phoneNumber
 			});
 
+			console.log('OTP response:', response);
 			otpSent = true;
-			toast('OTP Sent!');
-		} catch (err) {
-			error = 'Failed to send OTP. Please try again.';
-			console.error(err);
+			toast.success('OTP sent successfully! Check your phone.');
+		} catch (err: any) {
+			console.error('Failed to send OTP:', err);
+			
+			// Handle specific Twilio trial mode errors
+			const errorMsg = err?.message || '';
+			if (errorMsg.includes('trial') || errorMsg.includes('unverified') || errorMsg.includes('60200')) {
+				error = '⚠️ Demo Mode: This app uses Twilio trial account. To receive OTP, your phone number must be verified in Twilio Console first. Please contact the administrator or try with a verified number.';
+			} else {
+				error = errorMsg || 'Failed to send OTP. Please check your phone number and try again.';
+			}
+			toast.error('Failed to send OTP');
 		} finally {
 			isLoading = false;
 		}

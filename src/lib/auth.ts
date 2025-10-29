@@ -20,12 +20,27 @@ export const auth = betterAuth({
 	plugins: [
 		phoneNumber({
 			sendOTP: async ({ phoneNumber }) => {
-				const client = new Twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
+				try {
+					console.log('Attempting to send OTP to:', phoneNumber);
+					console.log('Twilio Account SID:', TWILIO_ACCOUNT_SID ? 'Set' : 'Missing');
+					console.log('Twilio Auth Token:', TWILIO_AUTH_TOKEN ? 'Set' : 'Missing');
+					console.log('Twilio Verify Service SID:', TWILIO_VERIFY_SERVICE_SID ? 'Set' : 'Missing');
 
-				await client.verify.v2.services(TWILIO_VERIFY_SERVICE_SID).verifications.create({
-					channel: 'sms',
-					to: phoneNumber
-				});
+					const client = new Twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
+
+					const verification = await client.verify.v2
+						.services(TWILIO_VERIFY_SERVICE_SID)
+						.verifications.create({
+							channel: 'sms',
+							to: phoneNumber
+						});
+
+					console.log('OTP sent successfully:', verification.status);
+					return verification;
+				} catch (error) {
+					console.error('Error sending OTP:', error);
+					throw error;
+				}
 			},
 			signUpOnVerification: {
 				getTempName: (phoneNumber) => {
